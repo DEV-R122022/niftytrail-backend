@@ -1,15 +1,52 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import AppDataSource from '../datasource';
+import { User } from '../user/entities/user.entity';
+import { CreateUserDto } from '../user/dto/user.dto';
+import { httpMessage } from '../__core/messages/http.message';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
+
+  async createAccount(createAuthDto: CreateUserDto) {
+    const user = await this.userRepository.findOne({ 
+      where: { username: createAuthDto.username } 
+    });
+
+    if(user) {
+      throw new BadRequestException(httpMessage["0D000"]);
+    }
+
+    // SAVE USER
+    const salt = bcrypt.genSaltSync(10);
+    await this.userRepository.save({
+      ...createAuthDto, 
+      salt,
+      password: bcrypt.hashSync(createAuthDto.password, salt)
+    });
+    
+    return httpMessage["00000"];
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async loginAccount(body: any) {
+    const user = await this.userRepository.findOne({ 
+      where: { username: body.username } 
+    });
+
+    if(!user) {
+      throw new BadRequestException(httpMessage["0A002"]);
+    }
+
+    const isMatch = await bcrypt.compare(body.password, user.password);
+
+    return  isMatch;
   }
 
   findOne(id: number) {

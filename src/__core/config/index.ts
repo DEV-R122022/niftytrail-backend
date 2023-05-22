@@ -1,0 +1,1 @@
+export { config as configTypeOrm } from "./typeorm.config"
