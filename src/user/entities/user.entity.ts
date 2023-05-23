@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, RelationOptions } from "typeorm";
+import { Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, RelationOptions, OneToMany } from "typeorm";
+import { Activity } from '../../activity/entities/activity.entity';
 
 const relationOptions: RelationOptions = {
     cascade: ["insert", "update", "remove"],
@@ -26,4 +27,11 @@ export class User {
   
     @UpdateDateColumn()
     updatedAt: Date;
+    
+    // RELATIONSHIPS
+    @OneToMany(() => Activity, (data) => data.owner, relationOptions)
+    owner: Activity[];
+  
+    @OneToMany(() => Activity, (data) => data.editor, relationOptions)
+    editor: Activity[];
 }

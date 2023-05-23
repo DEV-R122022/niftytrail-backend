@@ -4,11 +4,13 @@ import { UserController } from './controllers/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { ClientController } from './controllers/client.controller';
+import { Activity } from '../activity/entities/activity.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      User
+      User,
+      Activity
     ])
   ],
   controllers: [UserController, ClientController],

@@ -48,7 +48,8 @@ export class CreateTableUser1684762172193 implements MigrationInterface {
                 },
               ],
             }),
-          );
+            true
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

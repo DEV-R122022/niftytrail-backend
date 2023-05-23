@@ -7,7 +7,7 @@ export const config: TypeOrmModuleOptions = {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
-    port: Number(process.env.PORT),
+    port: Number(process.env.DB_PORT),
     ssl: true,
     extra: {
       ssl: {

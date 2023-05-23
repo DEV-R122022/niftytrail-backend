@@ -7,13 +7,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ActivityType } from '../__core/enums/activity-type.enum';
+import { Origin } from '../__core/enums/origin.enum';
+import { ILoginActivityPayload } from '../__core/interface';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   async createAccount(createAuthDto: CreateUserDto) {
@@ -49,6 +54,15 @@ export class AuthService {
     if(!isMatch) {
       throw new BadRequestException(httpMessage["0A002"]);
     }
+
+    this.eventEmitter.emit("account.login", {
+      type: ActivityType.LOGIN,
+      editor: user,
+      owner: user,
+      origin: Origin.WEB,
+      details: "Login successfully",
+      ipAddress: "127.0.0.1"
+    } as ILoginActivityPayload);
 
     return {
       access_token: await this.jwtService.signAsync({
