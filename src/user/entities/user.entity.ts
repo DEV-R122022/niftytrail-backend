@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Entity, RelationOptions, OneToMany } from "typeorm";
-import { Activity } from '../../activity/entities/activity.entity';
+import { Activity } from '../../activity/activity.entity';
 
 const relationOptions: RelationOptions = {
     cascade: ["insert", "update", "remove"],

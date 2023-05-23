@@ -8,7 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configTypeOrm } from './__core/config';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtExpiry } from './__core/enums';
-import { ActivityModule } from './activity/activity.module';
 import { EventModule } from './__core/events/event.module';
 import { EventEmitterModule } from "@nestjs/event-emitter";
 
@@ -39,7 +38,6 @@ import { EventEmitterModule } from "@nestjs/event-emitter";
     EventModule,
     AuthModule, 
     UserModule, 
-    ActivityModule,     
   ],
   controllers: [AppController],
   providers: [AppService],

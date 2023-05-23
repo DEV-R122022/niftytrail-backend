@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { ILoginActivityPayload } from "../interface";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Activity } from "../../activity/entities/activity.entity";
+import { Activity } from "../../activity/activity.entity";
 import { Repository } from "typeorm";
 
 @Injectable()

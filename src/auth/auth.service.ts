@@ -61,7 +61,7 @@ export class AuthService {
       owner: user,
       origin: Origin.WEB,
       details: "Login successfully",
-      ipAddress: "127.0.0.1"
+      ipAddress: "0.0.0.0"
     } as ILoginActivityPayload);
 
     return {

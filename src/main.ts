@@ -4,6 +4,8 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { RequestMethod, ValidationPipe } from '@nestjs/common';
 
+declare const module: any;
+
 async function bootstrap() {
   const port = process.env.PORT || 3003;
   const app = await NestFactory.create(AppModule);
@@ -24,5 +26,10 @@ async function bootstrap() {
   await app.listen(port)
     .then(() => console.log(`APP LISTENING ON PORT ${port}`))
     .catch((error) => console.log("APP FAILED TO LISTEN", error));
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();
