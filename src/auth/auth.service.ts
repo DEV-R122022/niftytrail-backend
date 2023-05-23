@@ -1,18 +1,19 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UpdateAuthDto } from './dto/update-auth.dto';
-import AppDataSource from '../datasource';
 import { User } from '../user/entities/user.entity';
 import { CreateUserDto } from '../user/dto/user.dto';
 import { httpMessage } from '../__core/messages/http.message';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService
   ) {}
 
   async createAccount(createAuthDto: CreateUserDto) {
@@ -45,8 +46,17 @@ export class AuthService {
     }
 
     const isMatch = await bcrypt.compare(body.password, user.password);
+    if(!isMatch) {
+      throw new BadRequestException(httpMessage["0A002"]);
+    }
 
-    return  isMatch;
+    return {
+      access_token: await this.jwtService.signAsync({
+        id: user.id,
+        username: user.username,
+        role: user.role
+      }),
+    };
   }
 
   findOne(id: number) {

@@ -8,8 +8,11 @@ const AppDataSource = new DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
-    ssl: {
-      rejectUnauthorized: false,
+    ssl: true,
+    extra: {
+      ssl: {
+        rejectUnauthorized: false,
+      }
     },
     entities: [__dirname + '/../**/*.entity.js'],
     migrationsTableName: "__migration",
@@ -20,8 +23,7 @@ const AppDataSource = new DataSource({
 
   AppDataSource
     .initialize()
-    .then(() => console.log("Datasource initialized"))
+    .then((connection) => console.log("Datasource initialized"))
     .catch((error) => console.log("Datasource failed", error));
   
-
 export default AppDataSource;

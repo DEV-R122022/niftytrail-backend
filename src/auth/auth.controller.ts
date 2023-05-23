@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Version, HttpCode } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../user/dto';
@@ -11,19 +10,18 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Version("1")
-  @Post("/register")
   @HttpCode(201)
+  @Post("/register")
   createAccount(@Body() body: CreateUserDto) {
     return this.authService.createAccount(body);
   }
 
   @Version("1")
-  @Post("/login")
   @HttpCode(201)
+  @Post("/login")
   loginAccount(@Body() body: any) {
     return this.authService.loginAccount(body);
   }
-
 
   @Get(':id')
   findOne(@Param('id') id: string) {

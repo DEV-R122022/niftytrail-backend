@@ -92,19 +92,19 @@ export const httpMessage = {
     },
     // Class 0F
     "0F000": {
-        "code": "0B000",
+        "code": "0F000",
         "message": "Client not found"
     },
     "0F001": {
-        "code": "0B001",
+        "code": "0F001",
         "message": "User not found"
     },
     "0F002": {
-        "code": "0B002",
+        "code": "0F002",
         "message": "Invalid email address format"
     },
     "0F003": {
-        "code": "0B003",
+        "code": "0F003",
         "message": "Invalid username format"
     },
     // Class 0C
