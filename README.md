@@ -26,7 +26,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-# Environment Variables
+## Environment Variables
 
 ```bash
 $ DB_TYPE
