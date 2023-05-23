@@ -7,7 +7,7 @@ import { RequestMethod, ValidationPipe } from '@nestjs/common';
 declare const module: any;
 
 async function bootstrap() {
-  const port = process.env.PORT || 3003;
+  const port = 3000;
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Niftytrail API')
