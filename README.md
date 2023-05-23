@@ -26,18 +26,6 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Environment Variables
-
-```bash
-$ DB_TYPE
-$ DB_HOST
-$ DB_USER
-$ DB_PASS
-$ DB_DATABASE
-$ DB_PORT
-$ JWT_SECRET
-```
-
 ## Installation
 
 ```bash
@@ -68,6 +56,18 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Environment Variables
+
+```bash
+$ DB_TYPE
+$ DB_HOST
+$ DB_USER
+$ DB_PASS
+$ DB_DATABASE
+$ DB_PORT
+$ JWT_SECRET
 ```
 
 ## Support
